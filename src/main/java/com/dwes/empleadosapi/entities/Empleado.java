@@ -34,7 +34,6 @@ public class Empleado {
             joinColumns = @JoinColumn(name = "empleado_id"),
             inverseJoinColumns = @JoinColumn(name = "proyecto_id")
     )
-
     private List<Proyecto> proyectos = new ArrayList<>();
 
 }
