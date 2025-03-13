@@ -139,11 +139,8 @@ public class EmpleadoAPIController {
         Optional<Empleado> empleado = empleadoRepository.findById(idEmpleado);
         Optional<Proyecto> proyecto = proyectoRepository.findById(idProyecto);
         if(empleado.isPresent() && proyecto.isPresent()) {
-            proyecto.get().getEmpleados().remove(empleado.get());
             empleado.get().getProyectos().remove(proyecto.get());
             empleadoRepository.save(empleado.get());
-            proyectoRepository.save(proyecto.get());
-
             return ResponseEntity.ok(empleado.get());
         }
         else {
