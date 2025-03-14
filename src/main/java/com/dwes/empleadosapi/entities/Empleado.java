@@ -28,7 +28,7 @@ public class Empleado {
     @Email
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "empleado_proyecto",
             joinColumns = @JoinColumn(name = "empleado_id"),

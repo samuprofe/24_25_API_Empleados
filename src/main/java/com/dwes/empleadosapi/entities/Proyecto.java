@@ -34,7 +34,7 @@ public class Proyecto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaInicio;
 
-    @ManyToMany(mappedBy = "proyectos", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "proyectos", cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<Empleado> empleados = new ArrayList<>();
 
