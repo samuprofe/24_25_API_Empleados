@@ -69,6 +69,10 @@ public class ProyectoAPIController {
     public ResponseEntity<?> deleteProyecto(@PathVariable Long id) {
         return proyectoRepository.findById(id)
                 .map(proyecto -> {
+                    //Desasociamos los empleados del proyecto para que no de error la Bd al borrar el proyecto
+                    proyecto.getEmpleados().forEach(empleado -> {empleado.getProyectos().remove(proyecto);});
+                    proyecto.getEmpleados().clear();
+                    //Borramos el proyecto
                     proyectoRepository.delete(proyecto);
                     return ResponseEntity.noContent().build(); // HTTP 204 No Content
                 })

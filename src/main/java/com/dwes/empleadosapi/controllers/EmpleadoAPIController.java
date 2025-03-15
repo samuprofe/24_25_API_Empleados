@@ -99,21 +99,11 @@ public class EmpleadoAPIController {
      */
     @DeleteMapping("/empleados/{id}")
     public ResponseEntity<?> deleteEmpleado(@PathVariable Long id){
-
-        /*
-        Optional<Empleado> empleado = empleadoRepository.findById(id);
-        if(empleado.isPresent()){
-            empleadoRepository.delete(empleado.get());
-            return ResponseEntity.noContent().build();  //Devuelve el código status 204 Not Content
-        }
-        else{
-            return ResponseEntity.notFound().build();   //Devuelve el código status 404 Not Found
-        }
-        */
-
-
         return empleadoRepository.findById(id)
                 .map(empleado -> {
+                    //Desasociamos los proyectos de este empleado ante de borrarlo
+                    empleado.getProyectos().forEach(proyecto -> proyecto.getEmpleados().remove(empleado));
+                    empleado.getProyectos().clear();
                     empleadoRepository.delete(empleado);
                     return ResponseEntity.noContent().build();
                 })
